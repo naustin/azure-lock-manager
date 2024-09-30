@@ -7,12 +7,12 @@ Partition Key --> AppName - Environment [dev, stg, trn, prd]
 Row Key --> Azure type - name  
 
 Valid partition keys are listed here:  
--nexa-dev
--nexa-stg
--nexa-trn
--nexa-prd
--sharedinfra-nonprod
--sharedinfra-prod
+* nexa-dev
+* nexa-stg
+* nexa-trn
+* nexa-prd
+* sharedinfra-nonprod
+* sharedinfra-prod
 
 
 # Setup
