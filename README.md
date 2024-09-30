@@ -15,7 +15,7 @@ Valid partition keys are listed here:
 * sharedinfra-prod
 
 
-# Setup
+# Application Development Environment Setup
 
 ### Step 1: Create a New Console Application
 
