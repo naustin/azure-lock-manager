@@ -6,9 +6,13 @@
 Partition Key --> AppName - Environment [dev, stg, trn, prd]  
 Row Key --> Azure type - name  
 
-Valid app names are listed here:  
-   nexa  
-   sharedinfra  
+Valid partition keys are listed here:  
+   nexa-dev
+   nexa-stg
+   nexa-trn
+   nexa-prd
+   sharedinfra-nonprod
+   sharedinfra-prod
 
 
 # Setup
