@@ -1,14 +1,14 @@
 # Requirements
 
-### "lookup" Table Schema
-
-Partition Key --> Lookup Type [AppName]  
-Row Key --> Name   
 
 ### "objects-to-delete-lock" Table Schema
 
 Partition Key --> AppName - Environment [dev, stg, trn, prd]  
 Row Key --> Azure type - name  
+
+Valid app names are listed here:  
+   nexa  
+   sharedinfra  
 
 
 # Setup
