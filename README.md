@@ -41,6 +41,7 @@ dotnet add package Microsoft.Extensions.DependencyInjection
 dotnet add package Microsoft.Extensions.Hosting
 dotnet add package Xunit
 dotnet add package FluentAssertions
+dotnet add package CommandLineParser --version 2.9.1
 ```
 
 ### Step 3: Set Up Dependency Injection and Logging
