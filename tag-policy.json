@@ -1,0 +1,56 @@
+{
+  "mode": "Indexed",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "type",
+          "in": [
+            "Microsoft.Sql/servers/databases",
+            "Microsoft.DBforPostgreSQL/flexibleServers"
+          ]
+        },
+        {
+          "field": "tags.DeleteLock",
+          "exists": "false"
+        }
+      ]
+    },
+    "then": {
+      "effect": "deployIfNotExists",
+      "details": {
+        "type": "Microsoft.Resources/deployments",
+        "existenceCondition": {
+          "allOf": [
+            {
+              "field": "type",
+              "in": [
+                "Microsoft.Sql/servers/databases",
+                "Microsoft.DBforPostgreSQL/flexibleServers"
+              ]
+            },
+            {
+              "field": "tags.DeleteLock",
+              "exists": "true"
+            }
+          ]
+        },
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionId}",
+        "parameters": {
+          "tagName": {
+            "value": "DeleteLock"
+          },
+          "tagValue": {
+            "value": "true"
+          }
+        },
+        "roleDefinitionIds": [
+          "/providers/microsoft.authorization/roleDefinitions/{roleDefinitionId}"
+        ]
+      }
+    }
+  },
+  "parameters": {},
+  "displayName": "Add DeleteLock Tag on SQL and PostgreSQL Flexible Server Creation",
+  "description": "Automatically adds a tag 'DeleteLock' with value 'true' to SQL databases and PostgreSQL Flexible Servers upon creation."
+}
