@@ -1,0 +1,12 @@
+[
+    {
+      "resourceGroupName": "rg1",
+      "skipLocking": "false",
+      "ttl_unit_epoch": "0234334234"
+    },
+    {      
+      "resourceGroupName": "rg2",
+      "skipLocking": "false",
+      "ttl_unit_epoch": "0234334234"
+    }
+]
