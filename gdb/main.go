@@ -36,7 +36,11 @@ type LockItems []struct {
     TTLUnixEpoch      int64 `json:"ttl_unix_epoch"`
 }
 
-func ReadGdbFile(gdb *LockItems) {
+type LockItemsRgOnly []struct {
+    ResourceGroupName string `json:"resourceGroupName"`
+}
+
+func readGdbFile(gdb *LockItems) {
     file, err := os.ReadFile("db.json")
     if err != nil {
         log.Panic(err)
@@ -51,20 +55,51 @@ func ReadGdbFile(gdb *LockItems) {
     log.Debug(gdb)
 }
 
-func RemoveOldRecords(gdb LockItems) LockItems {
+func removeOldRecords(gdb LockItems) []string {
     currentTime := time.Now().Unix()
     log.Debug("currenttime: ",currentTime)
-    var filteredItems LockItems
+	var resourceGroups []string
+
+	for _, item := range gdb {
+		if item.TTLUnixEpoch > currentTime {
+			resourceGroups = append(resourceGroups, item.ResourceGroupName)
+		}
+	}
+
+    log.Debug(resourceGroups)
+
+	return resourceGroups
+}
+
+func removeOldRecordsForDbUpdate(gdb LockItems) LockItems {
+    currentTime := time.Now().Unix()
+    var validItems LockItems
 
     for _, item := range gdb {
         if item.TTLUnixEpoch > currentTime {
-            filteredItems = append(filteredItems, item)
+            validItems = append(validItems, item)
         }
     }
 
-    log.Debug(filteredItems)
+    return validItems
+}
 
-    return filteredItems
+func removeMatches(arr1, arr2 []string) []string {
+    // Create a map to track elements in arr2
+    elements := make(map[string]bool)
+    for _, item := range arr2 {
+        elements[item] = true
+    }
+
+    // Iterate through arr1 and add non-matching elements to result
+    var result []string
+    for _, item := range arr1 {
+        if !elements[item] {
+            result = append(result, item)
+        }
+    }
+
+    return result
 }
 
 func main() {
@@ -77,9 +112,11 @@ func main() {
     
     var gdb LockItems
 
-    ReadGdbFile(&gdb)
+    readGdbFile(&gdb)
 
-    RemoveOldRecords(gdb)
+    // TODO: Update json db file and send to storage
+
+    removeOldRecords(gdb)
     
 }
 
